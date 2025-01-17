@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PI2301_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Instrukcija">
+          <Key>
+            <PropertyRef Name="instrukcija_ID" />
+          </Key>
+          <Property Name="instrukcija_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="predmet" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="cijena" Type="int" Nullable="false" />
+          <Property Name="trajanje" Type="int" Nullable="false" />
+          <Property Name="mjesto" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresa" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="instruktor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="korisnik_ID" />
+          </Key>
+          <Property Name="korisnik_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="uloga_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PI2301_DB.dbo.pripada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="pripada">
+          <Key>
+            <PropertyRef Name="termin_ID" />
+            <PropertyRef Name="korisnik_ID" />
+            <PropertyRef Name="racunIzdan" />
+          </Key>
+          <Property Name="termin_ID" Type="int" Nullable="false" />
+          <Property Name="korisnik_ID" Type="int" Nullable="false" />
+          <Property Name="racunIzdan" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="racun_ID" />
+          </Key>
+          <Property Name="racun_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ucenik_ID" Type="int" Nullable="false" />
+          <Property Name="instruktor_ID" Type="int" Nullable="false" />
+          <Property Name="instrukcija_ID" Type="int" Nullable="false" />
+          <Property Name="termin_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recenzija">
+          <Key>
+            <PropertyRef Name="recenzija_ID" />
+          </Key>
+          <Property Name="recenzija_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ocjena" Type="int" Nullable="false" />
+          <Property Name="Komentar" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ucenik_ID" Type="int" Nullable="false" />
+          <Property Name="instruktor_ID" Type="int" Nullable="false" />
+          <Property Name="Tip_recenzije_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Termin">
+          <Key>
+            <PropertyRef Name="termin_ID" />
+          </Key>
+          <Property Name="termin_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="broj_mjesta" Type="int" Nullable="false" />
+          <Property Name="vrijeme" Type="datetime" Nullable="false" />
+          <Property Name="instrukcija_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tip_recenzije">
+          <Key>
+            <PropertyRef Name="tip_recenzije_ID" />
+          </Key>
+          <Property Name="tip_recenzije_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv_recenzije" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="uloga_ID" />
+          </Key>
+          <Property Name="uloga_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Instrukcija_Racun">
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrukcija">
+              <PropertyRef Name="instrukcija_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="instrukcija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrukcija_Termin">
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="1" />
+          <End Role="Termin" Type="Self.Termin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrukcija">
+              <PropertyRef Name="instrukcija_ID" />
+            </Principal>
+            <Dependent Role="Termin">
+              <PropertyRef Name="instrukcija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_Instrukcija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Instrukcija">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_pripada">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="pripada" Type="Self.pripada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="pripada">
+              <PropertyRef Name="korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik1_Racun">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik1_recenzija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="ucenik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik2_Racun">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="ucenik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik2_recenzija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termin_pripada">
+          <End Role="Termin" Type="Self.Termin" Multiplicity="1" />
+          <End Role="pripada" Type="Self.pripada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termin">
+              <PropertyRef Name="termin_ID" />
+            </Principal>
+            <Dependent Role="pripada">
+              <PropertyRef Name="termin_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termin_Racun">
+          <End Role="Termin" Type="Self.Termin" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termin">
+              <PropertyRef Name="termin_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="termin_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tip_Recenzije">
+          <End Role="Tip_recenzije" Type="Self.Tip_recenzije" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_recenzije">
+              <PropertyRef Name="tip_recenzije_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Tip_recenzije_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uloga_Korisnik">
+          <End Role="Uloga" Type="Self.Uloga" Multiplicity="1" />
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="uloga_ID" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="uloga_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PI2301_DBModelStoreContainer">
+          <EntitySet Name="Instrukcija" EntityType="Self.Instrukcija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recenzija" EntityType="Self.Recenzija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Termin" EntityType="Self.Termin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tip_recenzije" EntityType="Self.Tip_recenzije" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uloga" EntityType="Self.Uloga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pripada" EntityType="Self.pripada" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [pripada].[termin_ID] AS [termin_ID], 
+    [pripada].[korisnik_ID] AS [korisnik_ID], 
+    [pripada].[racunIzdan] AS [racunIzdan]
+    FROM [dbo].[pripada] AS [pripada]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Instrukcija_Racun" Association="Self.FK_Instrukcija_Racun">
+            <End Role="Instrukcija" EntitySet="Instrukcija" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrukcija_Termin" Association="Self.FK_Instrukcija_Termin">
+            <End Role="Instrukcija" EntitySet="Instrukcija" />
+            <End Role="Termin" EntitySet="Termin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_Instrukcija" Association="Self.FK_Korisnik_Instrukcija">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Instrukcija" EntitySet="Instrukcija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_pripada" Association="Self.FK_Korisnik_pripada">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="pripada" EntitySet="pripada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik1_Racun" Association="Self.FK_Korisnik1_Racun">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik1_recenzija" Association="Self.FK_Korisnik1_recenzija">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Recenzija" EntitySet="Recenzija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik2_Racun" Association="Self.FK_Korisnik2_Racun">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik2_recenzija" Association="Self.FK_Korisnik2_recenzija">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Recenzija" EntitySet="Recenzija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termin_pripada" Association="Self.FK_Termin_pripada">
+            <End Role="Termin" EntitySet="Termin" />
+            <End Role="pripada" EntitySet="pripada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termin_Racun" Association="Self.FK_Termin_Racun">
+            <End Role="Termin" EntitySet="Termin" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tip_Recenzije" Association="Self.FK_Tip_Recenzije">
+            <End Role="Tip_recenzije" EntitySet="Tip_recenzije" />
+            <End Role="Recenzija" EntitySet="Recenzija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uloga_Korisnik" Association="Self.FK_Uloga_Korisnik">
+            <End Role="Uloga" EntitySet="Uloga" />
+            <End Role="Korisnik" EntitySet="Korisnik" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PI2301_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Instrukcija">
+          <Key>
+            <PropertyRef Name="instrukcija_ID" />
+          </Key>
+          <Property Name="instrukcija_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="predmet" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cijena" Type="Int32" Nullable="false" />
+          <Property Name="trajanje" Type="Int32" Nullable="false" />
+          <Property Name="mjesto" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="instruktor_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Racuns" Relationship="Self.FK_Instrukcija_Racun" FromRole="Instrukcija" ToRole="Racun" />
+          <NavigationProperty Name="Termins" Relationship="Self.FK_Instrukcija_Termin" FromRole="Instrukcija" ToRole="Termin" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Korisnik_Instrukcija" FromRole="Instrukcija" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="korisnik_ID" />
+          </Key>
+          <Property Name="korisnik_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uloga_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instrukcijas" Relationship="Self.FK_Korisnik_Instrukcija" FromRole="Korisnik" ToRole="Instrukcija" />
+          <NavigationProperty Name="pripadas" Relationship="Self.FK_Korisnik_pripada" FromRole="Korisnik" ToRole="pripada" />
+          <NavigationProperty Name="Racuns" Relationship="Self.FK_Korisnik1_Racun" FromRole="Korisnik" ToRole="Racun" />
+          <NavigationProperty Name="Recenzijas" Relationship="Self.FK_Korisnik1_recenzija" FromRole="Korisnik" ToRole="Recenzija" />
+          <NavigationProperty Name="Racuns1" Relationship="Self.FK_Korisnik2_Racun" FromRole="Korisnik" ToRole="Racun" />
+          <NavigationProperty Name="Recenzijas1" Relationship="Self.FK_Korisnik2_recenzija" FromRole="Korisnik" ToRole="Recenzija" />
+          <NavigationProperty Name="Uloga" Relationship="Self.FK_Uloga_Korisnik" FromRole="Korisnik" ToRole="Uloga" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="racun_ID" />
+          </Key>
+          <Property Name="racun_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ucenik_ID" Type="Int32" Nullable="false" />
+          <Property Name="instruktor_ID" Type="Int32" Nullable="false" />
+          <Property Name="instrukcija_ID" Type="Int32" Nullable="false" />
+          <Property Name="termin_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instrukcija" Relationship="Self.FK_Instrukcija_Racun" FromRole="Racun" ToRole="Instrukcija" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Korisnik1_Racun" FromRole="Racun" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Korisnik2_Racun" FromRole="Racun" ToRole="Korisnik" />
+          <NavigationProperty Name="Termin" Relationship="Self.FK_Termin_Racun" FromRole="Racun" ToRole="Termin" />
+        </EntityType>
+        <EntityType Name="Recenzija">
+          <Key>
+            <PropertyRef Name="recenzija_ID" />
+          </Key>
+          <Property Name="recenzija_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ocjena" Type="Int32" Nullable="false" />
+          <Property Name="Komentar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ucenik_ID" Type="Int32" Nullable="false" />
+          <Property Name="instruktor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Tip_recenzije_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Korisnik1_recenzija" FromRole="Recenzija" ToRole="Korisnik" />
+          <NavigationProperty Name="Korisnik1" Relationship="Self.FK_Korisnik2_recenzija" FromRole="Recenzija" ToRole="Korisnik" />
+          <NavigationProperty Name="Tip_recenzije" Relationship="Self.FK_Tip_Recenzije" FromRole="Recenzija" ToRole="Tip_recenzije" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Termin">
+          <Key>
+            <PropertyRef Name="termin_ID" />
+          </Key>
+          <Property Name="termin_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="broj_mjesta" Type="Int32" Nullable="false" />
+          <Property Name="vrijeme" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="instrukcija_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instrukcija" Relationship="Self.FK_Instrukcija_Termin" FromRole="Termin" ToRole="Instrukcija" />
+          <NavigationProperty Name="Racuns" Relationship="Self.FK_Termin_Racun" FromRole="Termin" ToRole="Racun" />
+          <NavigationProperty Name="pripadas" Relationship="Self.FK_Termin_pripada" FromRole="Termin" ToRole="pripada" />
+        </EntityType>
+        <EntityType Name="Tip_recenzije">
+          <Key>
+            <PropertyRef Name="tip_recenzije_ID" />
+          </Key>
+          <Property Name="tip_recenzije_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv_recenzije" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Recenzijas" Relationship="Self.FK_Tip_Recenzije" FromRole="Tip_recenzije" ToRole="Recenzija" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="uloga_ID" />
+          </Key>
+          <Property Name="uloga_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Korisniks" Relationship="Self.FK_Uloga_Korisnik" FromRole="Uloga" ToRole="Korisnik" />
+        </EntityType>
+        <EntityType Name="pripada">
+          <Key>
+            <PropertyRef Name="termin_ID" />
+            <PropertyRef Name="korisnik_ID" />
+            <PropertyRef Name="racunIzdan" />
+          </Key>
+          <Property Name="termin_ID" Type="Int32" Nullable="false" />
+          <Property Name="korisnik_ID" Type="Int32" Nullable="false" />
+          <Property Name="racunIzdan" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Korisnik_pripada" FromRole="pripada" ToRole="Korisnik" />
+          <NavigationProperty Name="Termin" Relationship="Self.FK_Termin_pripada" FromRole="pripada" ToRole="Termin" />
+        </EntityType>
+        <Association Name="FK_Instrukcija_Racun">
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrukcija">
+              <PropertyRef Name="instrukcija_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="instrukcija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrukcija_Termin">
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="1" />
+          <End Role="Termin" Type="Self.Termin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrukcija">
+              <PropertyRef Name="instrukcija_ID" />
+            </Principal>
+            <Dependent Role="Termin">
+              <PropertyRef Name="instrukcija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_Instrukcija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Instrukcija" Type="Self.Instrukcija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Instrukcija">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik_pripada">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="pripada" Type="Self.pripada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="pripada">
+              <PropertyRef Name="korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik1_Racun">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik1_recenzija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="ucenik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik2_Racun">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="ucenik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnik2_recenzija">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="korisnik_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="instruktor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uloga_Korisnik">
+          <End Role="Uloga" Type="Self.Uloga" Multiplicity="1" />
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="uloga_ID" />
+            </Principal>
+            <Dependent Role="Korisnik">
+              <PropertyRef Name="uloga_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termin_Racun">
+          <End Role="Termin" Type="Self.Termin" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termin">
+              <PropertyRef Name="termin_ID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="termin_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tip_Recenzije">
+          <End Role="Tip_recenzije" Type="Self.Tip_recenzije" Multiplicity="1" />
+          <End Role="Recenzija" Type="Self.Recenzija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_recenzije">
+              <PropertyRef Name="tip_recenzije_ID" />
+            </Principal>
+            <Dependent Role="Recenzija">
+              <PropertyRef Name="Tip_recenzije_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termin_pripada">
+          <End Role="Termin" Type="Self.Termin" Multiplicity="1" />
+          <End Role="pripada" Type="Self.pripada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termin">
+              <PropertyRef Name="termin_ID" />
+            </Principal>
+            <Dependent Role="pripada">
+              <PropertyRef Name="termin_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PI2301_DBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Instrukcijas" EntityType="Self.Instrukcija" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+          <EntitySet Name="Racuns" EntityType="Self.Racun" />
+          <EntitySet Name="Recenzijas" EntityType="Self.Recenzija" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Termins" EntityType="Self.Termin" />
+          <EntitySet Name="Tip_recenzije" EntityType="Self.Tip_recenzije" />
+          <EntitySet Name="Ulogas" EntityType="Self.Uloga" />
+          <EntitySet Name="pripadas" EntityType="Self.pripada" />
+          <AssociationSet Name="FK_Instrukcija_Racun" Association="Self.FK_Instrukcija_Racun">
+            <End Role="Instrukcija" EntitySet="Instrukcijas" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrukcija_Termin" Association="Self.FK_Instrukcija_Termin">
+            <End Role="Instrukcija" EntitySet="Instrukcijas" />
+            <End Role="Termin" EntitySet="Termins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_Instrukcija" Association="Self.FK_Korisnik_Instrukcija">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Instrukcija" EntitySet="Instrukcijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik_pripada" Association="Self.FK_Korisnik_pripada">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="pripada" EntitySet="pripadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik1_Racun" Association="Self.FK_Korisnik1_Racun">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik1_recenzija" Association="Self.FK_Korisnik1_recenzija">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Recenzija" EntitySet="Recenzijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik2_Racun" Association="Self.FK_Korisnik2_Racun">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnik2_recenzija" Association="Self.FK_Korisnik2_recenzija">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Recenzija" EntitySet="Recenzijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uloga_Korisnik" Association="Self.FK_Uloga_Korisnik">
+            <End Role="Uloga" EntitySet="Ulogas" />
+            <End Role="Korisnik" EntitySet="Korisniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termin_Racun" Association="Self.FK_Termin_Racun">
+            <End Role="Termin" EntitySet="Termins" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tip_Recenzije" Association="Self.FK_Tip_Recenzije">
+            <End Role="Tip_recenzije" EntitySet="Tip_recenzije" />
+            <End Role="Recenzija" EntitySet="Recenzijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termin_pripada" Association="Self.FK_Termin_pripada">
+            <End Role="Termin" EntitySet="Termins" />
+            <End Role="pripada" EntitySet="pripadas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PI2301_DBModelStoreContainer" CdmEntityContainer="PI2301_DBEntities2">
+          <EntitySetMapping Name="Instrukcijas">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Instrukcija">
+              <MappingFragment StoreEntitySet="Instrukcija">
+                <ScalarProperty Name="instrukcija_ID" ColumnName="instrukcija_ID" />
+                <ScalarProperty Name="predmet" ColumnName="predmet" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="trajanje" ColumnName="trajanje" />
+                <ScalarProperty Name="mjesto" ColumnName="mjesto" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="instruktor_ID" ColumnName="instruktor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="korisnik_ID" ColumnName="korisnik_ID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="korisnicko_ime" ColumnName="korisnicko_ime" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="uloga_ID" ColumnName="uloga_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racuns">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="racun_ID" ColumnName="racun_ID" />
+                <ScalarProperty Name="ucenik_ID" ColumnName="ucenik_ID" />
+                <ScalarProperty Name="instruktor_ID" ColumnName="instruktor_ID" />
+                <ScalarProperty Name="instrukcija_ID" ColumnName="instrukcija_ID" />
+                <ScalarProperty Name="termin_ID" ColumnName="termin_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recenzijas">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Recenzija">
+              <MappingFragment StoreEntitySet="Recenzija">
+                <ScalarProperty Name="recenzija_ID" ColumnName="recenzija_ID" />
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
+                <ScalarProperty Name="Komentar" ColumnName="Komentar" />
+                <ScalarProperty Name="ucenik_ID" ColumnName="ucenik_ID" />
+                <ScalarProperty Name="instruktor_ID" ColumnName="instruktor_ID" />
+                <ScalarProperty Name="Tip_recenzije_ID" ColumnName="Tip_recenzije_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PI2301_DBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Termins">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Termin">
+              <MappingFragment StoreEntitySet="Termin">
+                <ScalarProperty Name="termin_ID" ColumnName="termin_ID" />
+                <ScalarProperty Name="broj_mjesta" ColumnName="broj_mjesta" />
+                <ScalarProperty Name="vrijeme" ColumnName="vrijeme" />
+                <ScalarProperty Name="instrukcija_ID" ColumnName="instrukcija_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tip_recenzije">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Tip_recenzije">
+              <MappingFragment StoreEntitySet="Tip_recenzije">
+                <ScalarProperty Name="tip_recenzije_ID" ColumnName="tip_recenzije_ID" />
+                <ScalarProperty Name="naziv_recenzije" ColumnName="naziv_recenzije" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ulogas">
+            <EntityTypeMapping TypeName="PI2301_DBModel.Uloga">
+              <MappingFragment StoreEntitySet="Uloga">
+                <ScalarProperty Name="uloga_ID" ColumnName="uloga_ID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pripadas">
+            <EntityTypeMapping TypeName="PI2301_DBModel.pripada">
+              <MappingFragment StoreEntitySet="pripada">
+                <ScalarProperty Name="termin_ID" ColumnName="termin_ID" />
+                <ScalarProperty Name="korisnik_ID" ColumnName="korisnik_ID" />
+                <ScalarProperty Name="racunIzdan" ColumnName="racunIzdan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

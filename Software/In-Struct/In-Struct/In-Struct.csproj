@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{26D3226D-8AB5-4E2A-89B5-9E95B127C043}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>In_Struct</RootNamespace>
+    <AssemblyName>In-Struct</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="2FaktorAutent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="2FaktorAutent.Designer.cs">
+      <DependentUpon>2FaktorAutent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Autentikacija.cs" />
+    <Compile Include="DaniUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DaniUC.Designer.cs">
+      <DependentUpon>DaniUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetaljiInstrukcijeKalendarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetaljiInstrukcijeKalendarFrm.Designer.cs">
+      <DependentUpon>DetaljiInstrukcijeKalendarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DodavanjeRecenzijeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DodavanjeRecenzijeFrm.Designer.cs">
+      <DependentUpon>DodavanjeRecenzijeFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DodavanjeTerminaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DodavanjeTerminaFrm.Designer.cs">
+      <DependentUpon>DodavanjeTerminaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetaljiInstrukcijeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetaljiInstrukcijeFrm.Designer.cs">
+      <DependentUpon>DetaljiInstrukcijeFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelperFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelperFrm.Designer.cs">
+      <DependentUpon>HelperFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Instrukcija.code.cs" />
+    <Compile Include="Instrukcija.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IzdavanjeRacunaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IzdavanjeRacunaFrm.Designer.cs">
+      <DependentUpon>IzdavanjeRacunaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Iznimke\TerminException.cs" />
+    <Compile Include="KalendarskiPrikazFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KalendarskiPrikazFrm.Designer.cs">
+      <DependentUpon>KalendarskiPrikazFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Korisnik.code.cs" />
+    <Compile Include="Korisnik.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KreiranjeOglasaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KreiranjeOglasaFrm.Designer.cs">
+      <DependentUpon>KreiranjeOglasaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="OtkazivanjeTerminaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OtkazivanjeTerminaFrm.Designer.cs">
+      <DependentUpon>OtkazivanjeTerminaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PocetnaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PocetnaFrm.Designer.cs">
+      <DependentUpon>PocetnaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PocetnaInstruktor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PocetnaInstruktor.Designer.cs">
+      <DependentUpon>PocetnaInstruktor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopisInstrukcijaInstruktor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopisInstrukcijaInstruktor.Designer.cs">
+      <DependentUpon>PopisInstrukcijaInstruktor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopisInstrukcijaNereg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopisInstrukcijaNereg.Designer.cs">
+      <DependentUpon>PopisInstrukcijaNereg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PocetnaUcenik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PocetnaUcenik.Designer.cs">
+      <DependentUpon>PocetnaUcenik.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrazanUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PrazanUC.Designer.cs">
+      <DependentUpon>PrazanUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledOdradenihFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledOdradenihFrm.Designer.cs">
+      <DependentUpon>PregledOdradenihFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledInstrukcijaUcenik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledInstrukcijaUcenik.Designer.cs">
+      <DependentUpon>PregledInstrukcijaUcenik.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledRecenzijaInstruktorFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledRecenzijaInstruktorFrm.Designer.cs">
+      <DependentUpon>PregledRecenzijaInstruktorFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrijavaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrijavaFrm.Designer.cs">
+      <DependentUpon>PrijavaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pripada.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PregledRecenzijaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledRecenzijaFrm.Designer.cs">
+      <DependentUpon>PregledRecenzijaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Racun.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RacunEmail.cs" />
+    <Compile Include="Recenzija.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistracijaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistracijaFrm.Designer.cs">
+      <DependentUpon>RegistracijaFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Termin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tip_recenzije.code.cs" />
+    <Compile Include="Tip_recenzije.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Uloga.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ulogaw.cs" />
+    <Compile Include="UpitOglas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpitOglas.Designer.cs">
+      <DependentUpon>UpitOglas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZakazivanjeTerminaInstrukcijaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZakazivanjeTerminaInstrukcijaFrm.Designer.cs">
+      <DependentUpon>ZakazivanjeTerminaInstrukcijaFrm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="2FaktorAutent.resx">
+      <DependentUpon>2FaktorAutent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DaniUC.resx">
+      <DependentUpon>DaniUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetaljiInstrukcijeFrm.resx">
+      <DependentUpon>DetaljiInstrukcijeFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetaljiInstrukcijeKalendarFrm.resx">
+      <DependentUpon>DetaljiInstrukcijeKalendarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DodavanjeRecenzijeFrm.resx">
+      <DependentUpon>DodavanjeRecenzijeFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DodavanjeTerminaFrm.resx">
+      <DependentUpon>DodavanjeTerminaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperFrm.resx">
+      <DependentUpon>HelperFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IzdavanjeRacunaFrm.resx">
+      <DependentUpon>IzdavanjeRacunaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KalendarskiPrikazFrm.resx">
+      <DependentUpon>KalendarskiPrikazFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KreiranjeOglasaFrm.resx">
+      <DependentUpon>KreiranjeOglasaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OtkazivanjeTerminaFrm.resx">
+      <DependentUpon>OtkazivanjeTerminaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PocetnaFrm.resx">
+      <DependentUpon>PocetnaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PocetnaInstruktor.resx">
+      <DependentUpon>PocetnaInstruktor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopisInstrukcijaInstruktor.resx">
+      <DependentUpon>PopisInstrukcijaInstruktor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopisInstrukcijaNereg.resx">
+      <DependentUpon>PopisInstrukcijaNereg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PocetnaUcenik.resx">
+      <DependentUpon>PocetnaUcenik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrazanUC.resx">
+      <DependentUpon>PrazanUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledOdradenihFrm.resx">
+      <DependentUpon>PregledOdradenihFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledInstrukcijaUcenik.resx">
+      <DependentUpon>PregledInstrukcijaUcenik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledRecenzijaFrm.resx">
+      <DependentUpon>PregledRecenzijaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledRecenzijaInstruktorFrm.resx">
+      <DependentUpon>PregledRecenzijaInstruktorFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrijavaFrm.resx">
+      <DependentUpon>PrijavaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RegistracijaFrm.resx">
+      <DependentUpon>RegistracijaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpitOglas.resx">
+      <DependentUpon>UpitOglas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZakazivanjeTerminaInstrukcijaFrm.resx">
+      <DependentUpon>ZakazivanjeTerminaInstrukcijaFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Pomoc\In-Struct-Help.chm" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\580b57fcd9996e24bc43c43c.png" />
+    <None Include="Resources\istockphoto-1135222849-612x612.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

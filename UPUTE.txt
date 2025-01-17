@@ -1,0 +1,7 @@
+git pull mu masteru
+odem u svoj branch checkout
+tam mrđam master
+nastavim radit svoje kaj imam
+i git pusham u svojem branchu
+i onda odem u master i mrđam sa svojim branchom
+i pusham onda u masteru
